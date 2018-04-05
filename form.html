@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Url check</title>
+</head>
+<body>
+	<textarea id="input" style="width:100%; min-height:100px"></textarea>
+	<br>
+	<button onclick="send()"/>send</button>
+	<div id="output">
+		
+	</div>
+</body>
+<script type="text/javascript">
+function send(){
+	var xhr = new XMLHttpRequest();
+	var words = document.getElementById("input").value;
+	var post_words = words.split(/\r\n|\r|\n/g).join('|');
+	var body = 'words=' + encodeURIComponent(post_words);
+	xhr.open("POST", '/', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	document.getElementById("output").innerHTML = "loading...";
+	xhr.onreadystatechange = function(){
+		document.getElementById("output").innerHTML = this.responseText;
+	};
+	xhr.send(body);
+}
+</script>
+</html>
